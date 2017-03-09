@@ -54,7 +54,7 @@ object Util {
       val content = versionLine(version) + "\ntimestamp=" + timestamp
       val f = dir / fileName
       if (!f.exists || f.lastModified < lastCompilationTime(analysis) || !containsVersion(f, version)) {
-        s.log.info("Writing version information to " + f + " :\n" + content)
+        s.log.debug("Writing version information to " + f + " :\n" + content)
         IO.write(f, content)
       }
       f :: Nil
