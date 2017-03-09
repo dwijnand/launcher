@@ -41,7 +41,7 @@ object LocksTest extends Properties("Locks") {
     }
   }
 
-  private def spec(f: => Boolean): Prop = Prop { _ => Result(if (f) True else False) }
+  private def spec(f: => Boolean): Prop = Prop { _ => new Result(if (f) True else False) }
 
   private def call[T](impl: => T) = new java.util.concurrent.Callable[T] { def call = impl }
   private def callLocked(lockFile: File) = call { Locks(lockFile, callTrue) }
