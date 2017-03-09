@@ -19,7 +19,7 @@ public interface AppProvider
 	/** Loads the class for the entry point for the application given by 'id'.  
 	 * This method will return the same class every invocation.  
 	 * That is, the ClassLoader is not recreated each call.
-	 * @deprecated("use entryPoint instead")
+	 * @deprecated use entryPoint instead
 	 * 
 	 * Note:  This will throw an exception if the launched application does not extend AppMain.
 	 */
