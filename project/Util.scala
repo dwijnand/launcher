@@ -13,7 +13,10 @@ object Util {
     publishMavenStyle := true
   )
 
-  def minProject(path: File, nameString: String) = Project(Project.normalizeModuleID(nameString), path) settings (commonSettings(nameString) ++ Release.javaVersionCheckSettings: _*)
+  def minProject(path: File, nameString: String) = {
+    val id = Project.normalizeProjectID(nameString).fold(s => sys error s"Invalid project id $nameString: $s", x => x)
+    Project(id, path) settings (commonSettings(nameString) ++ Release.javaVersionCheckSettings: _*)
+  }
   def baseProject(path: File, nameString: String) = minProject(path, nameString) settings (base: _*)
 
   /** Configures a project to be java only. */
