@@ -41,7 +41,7 @@ object Initialize {
         readLine(prompt.label + prompt.default.toList.map(" [" + _ + "]").mkString + ": ") match {
           case None => noValue
           case Some(line) =>
-            val value = if (isEmpty(line)) orElse(prompt.default, noValue) else line
+            val value = if (isEmpty(line)) prompt.default getOrElse noValue else line
             toUnit(properties.setProperty(name, value))
         }
     }
