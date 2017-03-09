@@ -3,7 +3,7 @@ import Keys._
 import Scope.{ GlobalScope, ThisScope }
 
 object LaunchProguard {
-  lazy val Proguard = config("proguard") hide;
+  lazy val Proguard = config("proguard").hide
 
   lazy val configurationFile = settingKey[File]("Location of the generated proguard configuration file.")
   lazy val proguard = taskKey[File]("Produces the final compacted jar that contains only the classes needed using proguard.")
