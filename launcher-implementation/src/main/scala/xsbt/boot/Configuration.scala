@@ -42,7 +42,7 @@ object Configuration {
     if (keyValue.length != 2)
       System.err.println("Warning: invalid system property '" + head + "'")
     else
-      System.setProperty(keyValue(0), keyValue(1))
+      toUnit(System.setProperty(keyValue(0), keyValue(1)))
   }
   def configurationOnClasspath: URL =
     {

@@ -234,7 +234,7 @@ object ServerLauncher {
       }
     } finally {
       process.destroy()
-      try { process.waitFor() } catch { case NonFatal(_) => }
+      try { toUnit(process.waitFor()) } catch { case NonFatal(_) => }
     }
   } catch {
     case e: IOException =>

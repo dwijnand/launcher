@@ -35,14 +35,14 @@ object Initialize {
   }
   def initialize(properties: Properties, name: String, init: PropertyInit) {
     init match {
-      case set: SetProperty => properties.setProperty(name, set.value)
+      case set: SetProperty => toUnit(properties.setProperty(name, set.value))
       case prompt: PromptProperty =>
         def noValue = declined("No value provided for " + prompt.label)
         readLine(prompt.label + prompt.default.toList.map(" [" + _ + "]").mkString + ": ") match {
           case None => noValue
           case Some(line) =>
             val value = if (isEmpty(line)) orElse(prompt.default, noValue) else line
-            properties.setProperty(name, value)
+            toUnit(properties.setProperty(name, value))
         }
     }
   }

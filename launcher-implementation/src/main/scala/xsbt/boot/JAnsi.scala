@@ -10,7 +10,7 @@ object JAnsi {
   private[this] def callJAnsiMethod(methodName: String, loader: ClassLoader): Unit =
     try {
       val c = Class.forName("org.fusesource.jansi.AnsiConsole", true, loader)
-      c.getMethod(methodName).invoke(null)
+      toUnit(c.getMethod(methodName).invoke(null))
     } catch {
       case ignore: ClassNotFoundException =>
       /* The below code intentionally traps everything. It technically shouldn't trap the

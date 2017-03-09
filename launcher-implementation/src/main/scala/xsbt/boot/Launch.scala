@@ -383,7 +383,7 @@ class ComponentProvider(baseDirectory: File, lockBoot: Boolean) extends xsbti.Co
       if (location.exists)
         throw new BootException("Cannot redefine component.  ID: " + id + ", files: " + files.mkString(","))
       else
-        Copy(files.toList, location)
+        toUnit(Copy(files.toList, location))
     }
   def addToComponent(id: String, files: Array[File]): Boolean =
     Copy(files.toList, componentLocation(id))

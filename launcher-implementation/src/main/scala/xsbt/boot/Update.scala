@@ -246,7 +246,7 @@ final class Update(config: UpdateConfiguration) {
     retrieveOptions.setArtifactFilter(new ArtifactFilter(filter))
     val scalaV = strictOr(scalaVersion, autoScalaVersion)
     retrieveOptions.setDestArtifactPattern(baseDirectoryName(scalaOrg, scalaV) + "/" + pattern)
-    retrieveEngine.retrieve(module.getModuleRevisionId, retrieveOptions)
+    toUnit(retrieveEngine.retrieve(module.getModuleRevisionId, retrieveOptions))
   }
   private[this] def notCoreScala(a: IArtifact) = a.getName match {
     case LibraryModuleName | CompilerModuleName => false

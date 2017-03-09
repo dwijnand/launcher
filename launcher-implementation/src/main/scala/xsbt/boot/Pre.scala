@@ -4,6 +4,7 @@
 package xsbt.boot
 
 import scala.collection.immutable.List
+import scala.reflect.ClassTag
 import java.io.{ File, FileFilter }
 import java.net.{ URL, URLClassLoader }
 import java.util.Locale
@@ -27,7 +28,7 @@ object Pre {
   def declined(msg: String): Nothing = throw new BootException(msg)
   def prefixError(msg: String): String = "Error during sbt execution: " + msg
   def toBoolean(s: String) = java.lang.Boolean.parseBoolean(s)
-  def toArray[T: ClassManifest](list: List[T]) =
+  def toArray[T: ClassTag](list: List[T]) =
     {
       val arr = new Array[T](list.length)
       def copy(i: Int, rem: List[T]): Unit =
@@ -76,7 +77,7 @@ object Pre {
       val fs = f.listFiles()
       if (fs ne null) fs foreach delete
     }
-    if (f.exists) f.delete()
+    if (f.exists) toUnit(f.delete())
   }
   final val isWindows: Boolean = System.getProperty("os.name").toLowerCase(Locale.ENGLISH).contains("windows")
   final val isCygwin: Boolean = isWindows && java.lang.Boolean.getBoolean("sbt.cygwin")
@@ -101,4 +102,7 @@ object Pre {
       System.setProperty(propName, properties.getProperty(propName))
     }
   }
+
+  /** Use this when you want to explicitly discard (non-Unit) values. */
+  @inline private[boot] final def toUnit[A](x: A): Unit = ()
 }
